@@ -1,0 +1,7 @@
+---
+- name: guacamole-rhel7 
+  hosts: guachosts 
+  tasks:
+    - name: Include guacamole-rhel7
+      include_role:
+        name: guacamole-rhel7

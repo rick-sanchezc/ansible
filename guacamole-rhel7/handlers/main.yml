@@ -1,0 +1,53 @@
+---
+# handlers file for guacamole-rhel7
+
+- name: restart guacd
+  service:
+    name: guacd
+    state: restarted
+
+- name: restart tomcat
+  service:
+    name: tomcat
+    state: restarted
+
+- name: restart mariadb 
+  service:
+    name: mariadb
+    state: restarted
+
+- name: restart postgresql
+  service:
+    name: postgresql
+    state: restarted
+
+- name: mariadb service 
+  service: 
+    name: mariadb
+    enabled: true
+    state: started
+
+- name: postgresql service
+  service:
+    name: postgresql
+    enabled: true
+    state: started
+
+- name: tomcat service
+  service:
+    name: tomcat
+    enabled: true
+    state: started
+
+- name: guadc service
+  service:
+    name: guacd
+    enabled: true
+    state: started
+
+- name: tomcat firewall
+  firewalld:
+    permanent: yes
+    immediate: yes
+    port: "8080/tcp"
+    state: enabled

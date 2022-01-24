@@ -1,0 +1,34 @@
+---
+- name: redhat | Enabling EPEL Repo
+  yum:
+    name: ["epel-release"]
+    state: present
+  register: result
+  until: result is successful
+
+- name: redhat | Enabling RPM Fusion Repos
+  yum:
+    name: "{{ guacamole_redhat_fusion_repos }}"
+    state: present
+    disable_gpg_check: true
+  register: result
+  until: result is successful
+
+- name: redhat | Installing Guacamole Pre-Reqs
+  yum:
+    name: "{{ guacamole_redhat_pre_reqs }}"
+    state: present
+  register: result
+  notify:
+    - tomcat service
+    - tomcat firewall 
+  until: result is successful
+
+- name: redhat | Installing Guacamole DB Pre-Reqs
+  yum:
+    name: "{{ guacamole_db_pre_reqs }}"
+    state: present
+  register: result
+  until: result is successful
+
+- meta: flush_handlers

@@ -1,0 +1,9 @@
+---
+# tasks file for guacamole-rhel7
+
+- include_tasks: set_facts.yml
+- include_tasks: redhat.yml
+- include_tasks: install.yml
+- include_tasks: config.yml 
+- include_tasks: client.yml
+- include_tasks: services.yml

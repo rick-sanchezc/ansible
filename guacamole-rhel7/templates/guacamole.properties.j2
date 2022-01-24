@@ -1,0 +1,25 @@
+{{ ansible_managed | comment }}
+# Hostname and port of guacamole proxy
+guacd-hostname: {{ guacamole_server_hostname }}
+{% if guacamole_server_port is defined and guacamole_server_port|int %}
+guacd-port: {{ guacamole_server_port }}
+{% endif %}
+{% if guacamole_postgresql_auth %}
+postgresql-hostname: {{ guacamole_postgresql_db['host'] }}
+postgresql-port: {{ guacamole_postgresql_db['port'] }}
+postgresql-database: {{ guacamole_postgresql_db['name'] }}
+postgresql-username: {{ guacamole_postgresql_db['username'] }}
+postgresql-password: {{ guacamole_postgresql_db['password'] }}
+postgresql-auto-create-accounts: {{ guacamole_postgresql_db['auto-create-accounts'] }}
+{% endif %}
+{% if guacamole_mysql_auth %}
+# MySQL properties
+mysql-hostname: {{ guacamole_mysql_db['host'] }}
+mysql-port: {{ guacamole_mysql_db['port'] }}
+mysql-database: {{ guacamole_mysql_db['name'] }}
+mysql-username: {{ guacamole_mysql_db['username'] }}
+mysql-password: {{ guacamole_mysql_db['password'] }}
+mysql-default-max-connections-per-user: 0
+mysql-default-max-group-connections-per-user: 0
+{% endif %}
+

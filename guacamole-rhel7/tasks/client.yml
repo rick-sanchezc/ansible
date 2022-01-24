@@ -1,0 +1,19 @@
+---
+- name: client | Downloading Guacamole Client {{ guacamole_war_package }} 
+  get_url:
+    url: "{{ guacamole_war_dl }}"
+    dest: /etc/guacamole/guacamole.war
+  register: dl
+  until: dl is success
+
+- name: client | Creating Tomcat Symlink For {{ guacamole_war_package }}
+  file:
+    src: /etc/guacamole/guacamole.war
+    dest: "{{ '/var/lib/' + guacamole_tomcat + '/webapps/guacamole.war' }}"
+    state: link
+
+- name: client | Setting Permissions On Tomcat Symlink For {{ guacamole_war_package }}
+  file:
+    path: /etc/guacamole/guacamole.war
+    owner: "{{ guacamole_tomcat_user }}"
+    group: "{{ guacamole_tomcat_user }}"

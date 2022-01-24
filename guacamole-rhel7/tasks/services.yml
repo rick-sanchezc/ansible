@@ -1,0 +1,15 @@
+---
+- name: service | Configuring services guacamole 
+  command: setsebool -P tomcat_can_network_connect_db on
+  notify:
+    - "{{ 'restart ' + db_server }}"
+    - restart guacd
+    - restart tomcat
+    - "{{ db_server + ' service'}}"
+    - guadc service
+    - tomcat service
+    - tomcat firewall
+
+- name: service | Reboot a Linux machine 
+  reboot:
+    reboot_timeout: 1800

@@ -1,0 +1,47 @@
+---
+- name: set_facts | Setting RedHat Facts
+  set_fact:
+    guacamole_tomcat: tomcat
+    guacamole_tomcat_service: tomcat
+    guacamole_tomcat_user: tomcat
+
+- name: set_facts | Setting RedHat postgresql Facts
+  set_fact:
+    db_server: postgresql
+    guacamole_db_pre_reqs:
+      - python-psycopg2
+      - postgresql
+      - postgresql-server
+  when: guacamole_postgresql_auth 
+
+- name: set_facts | Setting RedHat mariadb Facts
+  set_fact:
+    db_server: mariadb
+    guacamole_db_pre_reqs:
+      - python2-PyMySQL 
+      - mariadb 
+      - mariadb-server
+  when: guacamole_mysql_auth
+
+- name: set_facts | Setting RedHat Packages
+  set_fact:
+    guacamole_redhat_pre_reqs:
+      - "{{ guacamole_tomcat }}"
+      - cairo-devel
+      - ffmpeg-devel
+      - freerdp-devel
+      - gcc
+      - libgcrypt-devel
+      - libjpeg-turbo-devel
+      - libpng-devel
+      - libssh2-devel
+      - libtelnet-devel
+      - libvncserver-devel
+      - libvorbis-devel
+      - libwebp-devel
+      - libwebsockets-devel
+      - make
+      - openssl-devel
+      - pango-devel
+      - pulseaudio-libs-devel
+      - uuid-devel
